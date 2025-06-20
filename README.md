@@ -1,2 +1,2 @@
 # cbr-dws-client
-Клиент для работы с сервисом получения ежедневных данных ЦБ (http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx)
+Клиент для работы с (сервисом)[http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx] получения ежедневных данных ЦБ 
