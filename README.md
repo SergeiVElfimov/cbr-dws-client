@@ -11,7 +11,7 @@ from cbr_dws_client import CbrDwsClient
 from datetime import datetime
 
 # Получить список текущих курсов.
-cbr_dws_client = CbrDwsClient(verify=False)
+cbr_dws_client = CbrDwsClient()
 cbr_dws_client.get_currencies_on_date(datetime.now())
 
 # Получить список курс доллара.
