@@ -30,6 +30,7 @@ await async_cbr_dws_client.get_currencies_dynamic(datetime.now() - timedelta(day
 
 - python >=3.11, <4.0
 - zeep >=4.2.1
+- httpx <0.28
 
 ## Установка
 
