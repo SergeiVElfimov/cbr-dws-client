@@ -1,3 +1,3 @@
-from .base import CbrDwsClient
+from .base import AsyncCbrDwsClient, CbrDwsClient
 
-__all__ = ["CbrDwsClient"]
+__all__ = ["CbrDwsClient", "AsyncCbrDwsClient"]

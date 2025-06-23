@@ -1,0 +1,32 @@
+from datetime import datetime, timedelta
+from decimal import Decimal
+
+from cbr_dws_client import AsyncCbrDwsClient
+
+
+class TestAsyncCbrDwsClient:
+    @classmethod
+    def setup_class(cls) -> None:
+        cls.cbr_dws_client = AsyncCbrDwsClient(verify=False)
+
+    async def test_get_currencies_on_date(self):
+        res = await self.cbr_dws_client.get_currencies_on_date(datetime.now())
+        assert isinstance(res, list)
+
+    async def test_get_currencies_on_date_with_char_code(self):
+        res = await self.cbr_dws_client.get_currencies_on_date(datetime.now(), "USD")
+        assert isinstance(res.Vcurs, Decimal)
+
+    async def test_get_enum_currency_codes_list(self):
+        res = await self.cbr_dws_client.get_enum_currency_codes(False)
+        assert isinstance(res, list)
+
+    async def test_get_enum_currency_codes_list_with_char_code(self):
+        res = await self.cbr_dws_client.get_enum_currency_codes(False, "USD")
+        assert isinstance(res.Vcode, str)
+
+    async def test_get_currencies_dynamic_past_15_days(self):
+        res = await self.cbr_dws_client.get_currencies_dynamic(
+            datetime.now() - timedelta(days=15), datetime.now(), "USD"
+        )
+        assert isinstance(res, list)
