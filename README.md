@@ -7,18 +7,23 @@
 ## Пример
 
 ```python
-from cbr_dws_client import CbrDwsClient
+from cbr_dws_client import CbrDwsClient, AsyncCbrDwsClient
 from datetime import datetime
 
+cbr_dws_client = CbrDwsClient()
+async_cbr_dws_client = AsyncCbrDwsClient()
+
 # Получить список текущих курсов.
-cbr_dws_client = CbrDwsClient(verify=False)
 cbr_dws_client.get_currencies_on_date(datetime.now())
+await async_cbr_dws_client.get_currencies_on_date(datetime.now())
 
 # Получить список курс доллара.
 cbr_dws_client.get_currencies_on_date(datetime.now(), "USD")
+await async_cbr_dws_client.get_currencies_on_date(datetime.now(), "USD")
 
 # Получить текущую динамику курса доллара за 15 дней.
 cbr_dws_client.get_currencies_dynamic(datetime.now() - timedelta(days=15), datetime.now(), "USD")
+await async_cbr_dws_client.get_currencies_dynamic(datetime.now() - timedelta(days=15), datetime.now(), "USD")
 ```
 
 ## Требования
