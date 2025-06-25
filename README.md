@@ -35,3 +35,7 @@ await async_cbr_dws_client.get_currencies_dynamic(datetime.now() - timedelta(day
 ## Установка
 
 ```pip install cbr-dws-client```
+
+## Сотрудничество
+
+Перед тем как вносить вклад в проект, ознакомьтесь с нашими [правилами](CONTRIBUTING.md).
