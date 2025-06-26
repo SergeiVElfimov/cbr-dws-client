@@ -2,6 +2,7 @@ from datetime import datetime, timedelta
 from decimal import Decimal
 
 from cbr_dws_client import CbrDwsClient
+from cbr_dws_client.constants import CodeMetalEnum
 
 
 class TestCbrDwsClient:
@@ -28,3 +29,18 @@ class TestCbrDwsClient:
     def test_get_currencies_dynamic_past_15_days(self):
         res = self.cbr_dws_client.get_currencies_dynamic(datetime.now() - timedelta(days=15), datetime.now(), "USD")
         assert isinstance(res, list)
+
+    def test_get_key_rate(self):
+        res = self.cbr_dws_client.get_key_rate(datetime.now() - timedelta(days=15), datetime.now())
+        assert isinstance(res, list)
+
+    def test_get_drag_met_dynamic(self):
+        res = self.cbr_dws_client.get_drag_met_dynamic(datetime.now() - timedelta(days=15), datetime.now())
+        assert isinstance(res, list)
+
+    def test_get_drag_met_dynamic_with_drg_met_code(self):
+        res = self.cbr_dws_client.get_drag_met_dynamic(
+            datetime.now() - timedelta(days=15), datetime.now(), CodeMetalEnum.GOLD.value
+        )
+        assert isinstance(res, list)
+        assert res[0]["CodMet"] == 1
