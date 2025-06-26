@@ -65,6 +65,26 @@ class CbrDwsClient(ParseResponseCbrMixin):
             )
         )
 
+    def get_key_rate(self, from_date: date, to_date: date):
+        """Метод извлечения динамки ключевой ставки.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамика ключевой ставки (список словарей).
+        """
+        return self.parse_result_to_list(self.client.service.KeyRate(fromDate=from_date, ToDate=to_date))
+
+    def get_drag_met_dynamic(self, from_date: date, to_date: date, drg_met_code: int | None = None):
+        """Метод извлечения динамки учетных цен на драгоценные металлы.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамика учетных цен на драгоценные металлы (список словарей).
+        """
+        return self.parse_currency_on_period_dict(
+            self.client.service.DragMetDynamic(fromDate=from_date, ToDate=to_date), drg_met_code=drg_met_code
+        )
+
 
 class AsyncCbrDwsClient(ParseResponseCbrMixin):
     """Асинхронный клиент для работы с веб-сервис для получения ежедневных данных.
@@ -121,4 +141,24 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
             await self.client.service.GetCursDynamic(
                 FromDate=from_date, ToDate=to_date, ValutaCode=currency_code.Vcode.strip()
             )
+        )
+
+    async def get_key_rate(self, from_date: date, to_date: date):
+        """Метод извлечения динамки ключевой ставки.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамику ключевой ставки (список словарей).
+        """
+        return self.parse_result_to_list(await self.client.service.KeyRate(fromDate=from_date, ToDate=to_date))
+
+    async def get_drag_met_dynamic(self, from_date: date, to_date: date, drg_met_code: int | None = None):
+        """Метод извлечения динамки учетных цен на драгоценные металлы.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамика учетных цен на драгоценные металлы (список словарей).
+        """
+        return self.parse_currency_on_period_dict(
+            await self.client.service.DragMetDynamic(fromDate=from_date, ToDate=to_date), drg_met_code=drg_met_code
         )
