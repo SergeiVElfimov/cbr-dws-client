@@ -1,8 +1,9 @@
 # cbr-dws-client
 
 [![build-status-image]][build-status]
-[![pypi-version]][pypi]
 [![codeql-image]][codeql]
+[![pypi-version]][pypi]
+[![pypi-downloads]][pypi]
 
 Клиент для работы с [сервисом](http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx) получения ежедневных данных ЦБ.
 
@@ -56,6 +57,7 @@ await async_cbr_dws_client.get_drag_met_dynamic(datetime.now() - timedelta(days=
 [build-status-image]: https://github.com/SergeiVElfimov/cbr-dws-client/actions/workflows/python-package.yml/badge.svg
 [build-status]: https://github.com/SergeiVElfimov/cbr-dws-client/actions/workflows/python-package.yml
 [pypi-version]: https://img.shields.io/pypi/v/cbr-dws-client.svg
+[pypi-downloads]: https://img.shields.io/pypi/dm/cbr-dws-client?color=%232E73B2&logo=python&logoColor=%23F9D25F
 [pypi]: https://pypi.org/project/cbr-dws-client/
 [codeql-image]: https://github.com/SergeiVElfimov/cbr-dws-client/actions/workflows/codeql.yml/badge.svg
 [codeql]: https://github.com/SergeiVElfimov/cbr-dws-client/actions/workflows/codeql.yml
