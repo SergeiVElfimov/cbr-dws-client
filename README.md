@@ -1,5 +1,7 @@
 # cbr-dws-client
 
+![CI](https://github.com/github/docs/actions/workflows/python-package.yml/badge.svg)
+
 Клиент для работы с [сервисом](http://www.cbr.ru/DailyInfoWebServ/DailyInfo.asmx) получения ежедневных данных ЦБ.
 
 Подробную документацию по сервису см. [тут](https://cbr.ru/development/dws/)
