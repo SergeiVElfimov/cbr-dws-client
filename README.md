@@ -51,5 +51,5 @@ await async_cbr_dws_client.get_drag_met_dynamic(datetime.now() - timedelta(days=
 
 Перед тем как вносить вклад в проект, ознакомьтесь с нашими [правилами](CONTRIBUTING.md).
 
-[build-status-image]: https://github.com/encode/django-rest-framework/actions/workflows/python-package.yml/badge.svg
-[build-status]: https://github.com/encode/django-rest-framework/actions/workflows/python-package.yml
+[build-status-image]: https://github.com/SergeiVElfimov/cbr-dws-client/actions/workflows/python-package.yml/badge.svg
+[build-status]: https://github.com/SergeiVElfimov/cbr-dws-client/actions/workflows/python-package.yml
