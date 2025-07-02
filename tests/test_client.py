@@ -44,3 +44,10 @@ class TestCbrDwsClient:
         )
         assert isinstance(res, list)
         assert res[0]["CodMet"] == 1
+
+    def test_get_bi_cur_base(self):
+        res = self.cbr_dws_client.get_bi_cur_base(datetime.now() - timedelta(days=15), datetime.now())
+        assert isinstance(res, list)
+        for _date, value in res:
+            assert isinstance(_date, datetime)
+            assert isinstance(value, Decimal)

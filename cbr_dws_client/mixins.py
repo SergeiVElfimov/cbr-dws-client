@@ -1,3 +1,7 @@
+from datetime import datetime
+from decimal import Decimal
+
+
 class ParseResponseCbrMixin:
     """Миксин для методов парсинга ответа от сервиса ЦБ."""
 
@@ -43,4 +47,15 @@ class ParseResponseCbrMixin:
                     if getattr(v, "CodMet", None) == drg_met_code:
                         result.append(v)
                         break
+        return result
+
+    def parse_bi_cur_base(self, data: list[dict[str, dict[str, datetime | Decimal]]]):
+        """Метод обработки ответа от сервиса ЦБ для бивалютной корзины.
+
+        :param data: Изначальный ответ.
+        :return: Список кортежей.
+        """
+        result = []
+        for item in data:
+            result.append((item["BCB"]["D0"], item["BCB"]["VAL"]))
         return result
