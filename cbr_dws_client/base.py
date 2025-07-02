@@ -85,6 +85,17 @@ class CbrDwsClient(ParseResponseCbrMixin):
             self.client.service.DragMetDynamic(fromDate=from_date, ToDate=to_date), drg_met_code=drg_met_code
         )
 
+    def get_bi_cur_base(self, from_date: date, to_date: date):
+        """Метод извлечения динамки стоимости бивалютной корзины.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка стоимости бивалютной корзины (список кортежей [(Дата1, Значение1), ...]).
+        """
+        return self.parse_bi_cur_base(
+            data=self.parse_result_to_list(self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date))
+        )
+
 
 class AsyncCbrDwsClient(ParseResponseCbrMixin):
     """Асинхронный клиент для работы с веб-сервис для получения ежедневных данных.
@@ -161,4 +172,15 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
         """
         return self.parse_currency_on_period_dict(
             await self.client.service.DragMetDynamic(fromDate=from_date, ToDate=to_date), drg_met_code=drg_met_code
+        )
+
+    async def get_bi_cur_base(self, from_date: date, to_date: date):
+        """Метод извлечения динамки стоимости бивалютной корзины.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка стоимости бивалютной корзины (список кортежей [(Дата1, Значение1), ...]).
+        """
+        return self.parse_bi_cur_base(
+            data=self.parse_result_to_list(await self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date))
         )
