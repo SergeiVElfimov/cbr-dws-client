@@ -96,6 +96,17 @@ class CbrDwsClient(ParseResponseCbrMixin):
             data=self.parse_result_to_list(self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date))
         )
 
+    def get_bliquidity(self, from_date: date, to_date: date):
+        """Метод извлечения динамки ликвидности банковского сектора.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка стоимости бивалютной корзины (список кортежей [(Дата1, Значение1), ...]).
+        """
+        return self.parse_bliquidity(
+            self.parse_result_to_list(self.client.service.Bliquidity(fromDate=from_date, ToDate=to_date))
+        )
+
 
 class AsyncCbrDwsClient(ParseResponseCbrMixin):
     """Асинхронный клиент для работы с веб-сервис для получения ежедневных данных.
@@ -183,4 +194,15 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
         """
         return self.parse_bi_cur_base(
             data=self.parse_result_to_list(await self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date))
+        )
+
+    async def get_bliquidity(self, from_date: date, to_date: date):
+        """Метод извлечения динамки ликвидности банковского сектора.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка стоимости бивалютной корзины (список кортежей [(Дата1, Значение1), ...]).
+        """
+        return self.parse_bliquidity(
+            self.parse_result_to_list(await self.client.service.Bliquidity(fromDate=from_date, ToDate=to_date))
         )

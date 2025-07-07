@@ -59,3 +59,11 @@ class ParseResponseCbrMixin:
         for item in data:
             result.append((item["BCB"]["D0"], item["BCB"]["VAL"]))
         return result
+
+    def parse_bliquidity(self, data: list[dict[str, dict[str, datetime | Decimal]]]):
+        """Метод обработки ответа от сервиса ЦБ для динамики ликвидности банковского сектора.
+
+        :param data: Изначальный ответ.
+        :return: Список словарей.
+        """
+        return [item["BL"] for item in data]
