@@ -10,7 +10,7 @@ check_untyped_defs = true
 
 [tool.poetry]
 name = "cbr-dws-client"
-version = "0.0.4"
+version = "0.0.5"
 description = "Клиент для работы с сервисом получения ежедневных данных ЦБ РФ."
 authors = ["Sergey V. Elfimov <elfimovserg@gmail.com>"]
 packages = [{include = "cbr_dws_client"}]
