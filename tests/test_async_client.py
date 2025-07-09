@@ -57,3 +57,10 @@ class TestAsyncCbrDwsClient:
     async def test_get_bliquidity(self):
         res = await self.cbr_dws_client.get_bliquidity(datetime.now() - timedelta(days=15), datetime.now())
         assert isinstance(res, list)
+
+    async def test_get_saldo(self):
+        res = await self.cbr_dws_client.get_saldo(datetime.now() - timedelta(days=15), datetime.now())
+        assert isinstance(res, list)
+        for _date, value in res:
+            assert isinstance(_date, datetime)
+            assert isinstance(value, Decimal)

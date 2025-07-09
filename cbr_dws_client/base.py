@@ -92,8 +92,11 @@ class CbrDwsClient(ParseResponseCbrMixin):
         :param to_date: Дата окончания.
         :return: Динамка стоимости бивалютной корзины (список кортежей [(Дата1, Значение1), ...]).
         """
-        return self.parse_bi_cur_base(
-            data=self.parse_result_to_list(self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date))
+        return self.parse_with_dict(
+            data=self.parse_result_to_list(self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date)),
+            variable_name="BCB",
+            date_name="D0",
+            value_name="VAL",
         )
 
     def get_bliquidity(self, from_date: date, to_date: date):
@@ -105,6 +108,20 @@ class CbrDwsClient(ParseResponseCbrMixin):
         """
         return self.parse_bliquidity(
             self.parse_result_to_list(self.client.service.Bliquidity(fromDate=from_date, ToDate=to_date))
+        )
+
+    def get_saldo(self, from_date: date, to_date: date):
+        """Метод извлечения динамки cальдо операций ЦБ РФ.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка cальдо операций ЦБ РФ.
+        """
+        return self.parse_with_dict(
+            data=self.parse_result_to_list(self.client.service.Saldo(fromDate=from_date, ToDate=to_date)),
+            variable_name="So",
+            date_name="Dt",
+            value_name="DEADLINEBS",
         )
 
 
@@ -192,8 +209,11 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
         :param to_date: Дата окончания.
         :return: Динамка стоимости бивалютной корзины (список кортежей [(Дата1, Значение1), ...]).
         """
-        return self.parse_bi_cur_base(
-            data=self.parse_result_to_list(await self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date))
+        return self.parse_with_dict(
+            data=self.parse_result_to_list(await self.client.service.BiCurBase(fromDate=from_date, ToDate=to_date)),
+            variable_name="BCB",
+            date_name="D0",
+            value_name="VAL",
         )
 
     async def get_bliquidity(self, from_date: date, to_date: date):
@@ -205,4 +225,18 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
         """
         return self.parse_bliquidity(
             self.parse_result_to_list(await self.client.service.Bliquidity(fromDate=from_date, ToDate=to_date))
+        )
+
+    async def get_saldo(self, from_date: date, to_date: date):
+        """Метод извлечения динамки cальдо операций ЦБ РФ.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка cальдо операций ЦБ РФ.
+        """
+        return self.parse_with_dict(
+            data=self.parse_result_to_list(await self.client.service.Saldo(fromDate=from_date, ToDate=to_date)),
+            variable_name="So",
+            date_name="Dt",
+            value_name="DEADLINEBS",
         )

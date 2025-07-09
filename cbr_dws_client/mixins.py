@@ -60,6 +60,22 @@ class ParseResponseCbrMixin:
             result.append((item["BCB"]["D0"], item["BCB"]["VAL"]))
         return result
 
+    def parse_with_dict(
+        self, data: list[dict[str, dict[str, datetime | Decimal]]], variable_name: str, date_name: str, value_name: str
+    ):
+        """Метод обработки ответа от сервиса ЦБ ввиде словарей.
+
+        :param data: Изначальный ответ.
+        :param variable_name: Название переменной.
+        :param date_name: Название в словаре даты.
+        :param value_name: Назввание в словаре значения.
+        :return: Список кортежей.
+        """
+        result = []
+        for item in data:
+            result.append((item[variable_name][date_name], item[variable_name][value_name]))
+        return result
+
     def parse_bliquidity(self, data: list[dict[str, dict[str, datetime | Decimal]]]):
         """Метод обработки ответа от сервиса ЦБ для динамики ликвидности банковского сектора.
 
