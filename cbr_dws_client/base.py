@@ -124,6 +124,27 @@ class CbrDwsClient(ParseResponseCbrMixin):
             value_name="DEADLINEBS",
         )
 
+    def get_ruonia(self, from_date: date, to_date: date):
+        """Метод извлечения cтавки RUONIA.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка cтавки RUONIA
+        [
+            [
+                "Дата",
+                "Ставка, %",
+                "Объем сделок,по которым произведен расчет ставки RUONIA, млрд. руб.",
+                "Дата публикации"
+            ],
+            ...
+        ]
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(self.client.service.Ruonia(fromDate=from_date, ToDate=to_date)),
+            field_name="ro",
+        )
+
 
 class AsyncCbrDwsClient(ParseResponseCbrMixin):
     """Асинхронный клиент для работы с веб-сервис для получения ежедневных данных.
@@ -239,4 +260,25 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
             variable_name="So",
             date_name="Dt",
             value_name="DEADLINEBS",
+        )
+
+    async def get_ruonia(self, from_date: date, to_date: date):
+        """Метод извлечения cтавки RUONIA.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка cтавки RUONIA
+        [
+            [
+                "Дата",
+                "Ставка, %",
+                "Объем сделок,по которым произведен расчет ставки RUONIA, млрд. руб.",
+                "Дата публикации"
+            ],
+            ...
+        ]
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(await self.client.service.Ruonia(fromDate=from_date, ToDate=to_date)),
+            field_name="ro",
         )

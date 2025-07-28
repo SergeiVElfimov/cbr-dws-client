@@ -1,6 +1,8 @@
 from datetime import datetime
 from decimal import Decimal
 
+from zeep.helpers import serialize_object
+
 
 class ParseResponseCbrMixin:
     """Миксин для методов парсинга ответа от сервиса ЦБ."""
@@ -83,3 +85,12 @@ class ParseResponseCbrMixin:
         :return: Список словарей.
         """
         return [item["BL"] for item in data]
+
+    def parse_mono_dict(self, data: list[dict[str, dict[str, datetime | Decimal]]], field_name: str):
+        """Метод обработки списка словарей с одним вложенным ключом.
+
+        :param data: Список словарей
+        :param field_name: Ключ.
+        :return: Список списков.
+        """
+        return [serialize_object(item[field_name]).values() for item in data]
