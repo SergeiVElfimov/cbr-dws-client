@@ -64,3 +64,12 @@ class TestAsyncCbrDwsClient:
         for _date, value in res:
             assert isinstance(_date, datetime)
             assert isinstance(value, Decimal)
+
+    async def test_get_ruonia(self):
+        res = await self.cbr_dws_client.get_ruonia(datetime.now() - timedelta(days=15), datetime.now())
+        assert isinstance(res, list)
+        for _date, proc, value, date_pub in res:
+            assert isinstance(_date, datetime)
+            assert isinstance(proc, Decimal)
+            assert isinstance(value, Decimal)
+            assert isinstance(date_pub, datetime)
