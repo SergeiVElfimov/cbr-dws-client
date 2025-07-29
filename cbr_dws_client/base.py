@@ -145,6 +145,28 @@ class CbrDwsClient(ParseResponseCbrMixin):
             field_name="ro",
         )
 
+    def get_ruonia_sv(self, from_date: date, to_date: date):
+        """Метод извлечения индекса и срочная версия RUONIA.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка индекса и срочной версии RUONIA.
+        [
+            [
+                "Дата",
+                "Индекс",
+                "Срочная версия RUONIA на 1 месяц",
+                "Срочная версия RUONIA на 3 месяца",
+                "Срочная версия RUONIA на 6 месяцев",
+            ],
+            ...
+        ]
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(self.client.service.RuoniaSV(fromDate=from_date, ToDate=to_date)),
+            field_name="ra",
+        )
+
 
 class AsyncCbrDwsClient(ParseResponseCbrMixin):
     """Асинхронный клиент для работы с веб-сервис для получения ежедневных данных.
@@ -281,4 +303,26 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
         return self.parse_mono_dict(
             data=self.parse_result_to_list(await self.client.service.Ruonia(fromDate=from_date, ToDate=to_date)),
             field_name="ro",
+        )
+
+    async def get_ruonia_sv(self, from_date: date, to_date: date):
+        """Метод извлечения индекса и срочная версия RUONIA.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка индекса и срочной версии RUONIA.
+        [
+            [
+                "Дата",
+                "Индекс",
+                "Срочная версия RUONIA на 1 месяц",
+                "Срочная версия RUONIA на 3 месяца",
+                "Срочная версия RUONIA на 6 месяцев",
+            ],
+            ...
+        ]
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(await self.client.service.RuoniaSV(fromDate=from_date, ToDate=to_date)),
+            field_name="ra",
         )

@@ -71,3 +71,13 @@ class TestCbrDwsClient:
             assert isinstance(proc, Decimal)
             assert isinstance(value, Decimal)
             assert isinstance(date_pub, datetime)
+
+    def test_get_ruonia_sv(self):
+        res = self.cbr_dws_client.get_ruonia_sv(datetime.now() - timedelta(days=15), datetime.now())
+        assert isinstance(res, list)
+        for _date, index, ruonia_1m, ruonia_3m, ruonia_6m in res:
+            assert isinstance(_date, datetime)
+            assert isinstance(index, Decimal)
+            assert isinstance(ruonia_1m, Decimal)
+            assert isinstance(ruonia_3m, Decimal)
+            assert isinstance(ruonia_6m, Decimal)
