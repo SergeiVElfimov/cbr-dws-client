@@ -167,6 +167,61 @@ class CbrDwsClient(ParseResponseCbrMixin):
             field_name="ra",
         )
 
+    def get_mkr(self, from_date: date, to_date: date):
+        """Метод извлечения cтавки межбанковского кредитного рынка.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка cтавки межбанковского кредитного рынка.
+        [
+            [
+                "Дата",
+                "Тип",
+                "Срок кредита 1 день",
+                "Срок кредита 2-7 дней",
+                "Срок кредита 8-30 дней",
+                "Срок кредита 31-90 дней",
+                "Срок кредита 91-180 дней",
+                "Срок кредита 180-1 год",
+            ],
+            ...
+        ]
+        Все возможные типы: 1-MIBID(RUB), 2-MIBOR(RUB), 3-MIACR(RUB), 4-MIACR-IG(RUB), 5-MIACR(RUB, оборот),
+        6-MIACR-IG(RUB, оборот), 7-MIACR-B(RUB), 8-MIACR-B(RUB, оборот), 9-MIBID(USD),
+        10-MIBOR(USD), 11-MIACR(USD), 12- MIACR-IG(USВ), 13-MIACR(USD, обороты),
+        14-MIACR-IG(USD, обороты), 15-MIACR-B(USD), 16 MIACR-B(USD, обороты)
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(self.client.service.MKR(fromDate=from_date, ToDate=to_date)),
+            field_name="MKR",
+        )
+
+    def get_dv(self, from_date: date, to_date: date):
+        """Метод извлечения требований Банка России к кредитным организациям.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка требований Банка России к кредитным организациям.
+        [
+            [
+                "Дата",
+                "Кредиты овернайт",
+                "Ломбардные кредиты",
+                "Внутридневные кредиты",
+                "По другим кредитам",
+                "Обеспеченные золотом",
+                "Дата для данных по Внутридневным кредитам",
+                "Кредиты под нерыночные активы ОМ",
+                "Кредиты под нерыночные активы ДМ",
+            ],
+            ...
+        ]
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(self.client.service.DV(fromDate=from_date, ToDate=to_date)),
+            field_name="DV",
+        )
+
 
 class AsyncCbrDwsClient(ParseResponseCbrMixin):
     """Асинхронный клиент для работы с веб-сервис для получения ежедневных данных.
@@ -325,4 +380,59 @@ class AsyncCbrDwsClient(ParseResponseCbrMixin):
         return self.parse_mono_dict(
             data=self.parse_result_to_list(await self.client.service.RuoniaSV(fromDate=from_date, ToDate=to_date)),
             field_name="ra",
+        )
+
+    async def get_mkr(self, from_date: date, to_date: date):
+        """Метод извлечения cтавки межбанковского кредитного рынка.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка cтавки межбанковского кредитного рынка.
+        [
+            [
+                "Дата",
+                "Тип",
+                "Срок кредита 1 день",
+                "Срок кредита 2-7 дней",
+                "Срок кредита 8-30 дней",
+                "Срок кредита 31-90 дней",
+                "Срок кредита 91-180 дней",
+                "Срок кредита 180-1 год",
+            ],
+            ...
+        ]
+        Все возможные типы: 1-MIBID(RUB), 2-MIBOR(RUB), 3-MIACR(RUB), 4-MIACR-IG(RUB), 5-MIACR(RUB, оборот),
+        6-MIACR-IG(RUB, оборот), 7-MIACR-B(RUB), 8-MIACR-B(RUB, оборот), 9-MIBID(USD),
+        10-MIBOR(USD), 11-MIACR(USD), 12- MIACR-IG(USВ), 13-MIACR(USD, обороты),
+        14-MIACR-IG(USD, обороты), 15-MIACR-B(USD), 16 MIACR-B(USD, обороты)
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(await self.client.service.MKR(fromDate=from_date, ToDate=to_date)),
+            field_name="MKR",
+        )
+
+    async def get_dv(self, from_date: date, to_date: date):
+        """Метод извлечения требований Банка России к кредитным организациям.
+
+        :param from_date: Дата начала.
+        :param to_date: Дата окончания.
+        :return: Динамка требований Банка России к кредитным организациям.
+        [
+            [
+                "Дата",
+                "Кредиты овернайт",
+                "Ломбардные кредиты",
+                "Внутридневные кредиты",
+                "По другим кредитам",
+                "Обеспеченные золотом",
+                "Дата для данных по Внутридневным кредитам",
+                "Кредиты под нерыночные активы ОМ",
+                "Кредиты под нерыночные активы ДМ",
+            ],
+            ...
+        ]
+        """
+        return self.parse_mono_dict(
+            data=self.parse_result_to_list(await self.client.service.DV(fromDate=from_date, ToDate=to_date)),
+            field_name="DV",
         )
